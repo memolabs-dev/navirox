@@ -5,15 +5,9 @@ name: Actions audit
 # needs, which action is pinned to a moving target. Supabase and n8n both run
 # it, which is where the idea came from.
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/**'
-  pull_request:
-    paths:
-      - '.github/**'
   schedule:
     - cron: '41 4 * * 1'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

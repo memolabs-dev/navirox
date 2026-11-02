@@ -1,14 +1,12 @@
 name: CodeQL
 
 on:
-  push:
-    branches: [main]
-  pull_request:
   schedule:
     # Somebody else's query is written every week, and it can find something in
     # code nobody touched. Run on a fixed day so the signal arrives in one piece
     # rather than as a trickle.
     - cron: '27 4 * * 1'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
