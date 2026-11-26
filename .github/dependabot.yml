@@ -108,6 +108,23 @@ updates:
     commit-message:
       prefix: 'chore(deps)'
 
+  # The fixture manifests themselves. On 2026-11-26 security updates still opened
+  # #84 and #85 on packages/source-svelte/fixtures/version-boundary and
+  # version-refused, although `svelte` is ignored above: the ignore list of the
+  # root entry did not reach a manifest outside its directory. This entry names
+  # those directories and ignores every dependency in them, so no update, version
+  # or security, rewrites a fixture whose old version is the point of the test.
+  # If a fixture ever needs a real update, do it by hand with its test.
+  - package-ecosystem: npm
+    directories:
+      - '/packages/*/fixtures/*'
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: '*'
+
   # The actions in .github/workflows. Nothing was watching them until the Node 20
   # deprecation warning showed up, which is exactly what this entry prevents.
   - package-ecosystem: github-actions
