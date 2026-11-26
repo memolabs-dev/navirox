@@ -1,14 +1,12 @@
 name: CodeQL
 
 on:
-  push:
-    branches: [main]
-  pull_request:
   schedule:
     # Somebody else's query is written every week, and it can find something in
     # code nobody touched. Run on a fixed day so the signal arrives in one piece
     # rather than as a trickle.
     - cron: '27 4 * * 1'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -38,7 +36,7 @@ jobs:
       # No build step: CodeQL reads JavaScript and TypeScript without one, so
       # there is nothing here that can drift from how the packages are compiled.
       # Both steps come from the same release and move together.
-      - uses: github/codeql-action/init@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+      - uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
         with:
           languages: javascript-typescript
           # security-and-quality trades a few more findings for a few more
@@ -46,6 +44,6 @@ jobs:
           # and no server to notice a problem instead.
           queries: security-and-quality
 
-      - uses: github/codeql-action/analyze@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+      - uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
         with:
           category: '/language:javascript-typescript'

@@ -5,15 +5,9 @@ name: Actions audit
 # needs, which action is pinned to a moving target. Supabase and n8n both run
 # it, which is where the idea came from.
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/**'
-  pull_request:
-    paths:
-      - '.github/**'
   schedule:
     - cron: '41 4 * * 1'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -39,6 +33,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+      - uses: zizmorcore/zizmor-action@45d7276c9ca790aabd705e31ca99c6185c3e76dd # v0.8.1
         with:
           advanced-security: true
